@@ -49,10 +49,9 @@ public class Expendedor{
 
     /**
      * Constructor de la clase Expendedor
-     * inicializa cada deposito y los llena con la cantidad indicada
-     * @param numProductos La cantidad de stock inicial que tendra cada uno de los productos
+     * inicializa cada deposito con 15 elementos de cada producto
      */
-    public Expendedor(int numProductos){
+    public Expendedor(){
         this.coca= new Deposito<Producto>();
         this.fanta= new Deposito<Producto>();
         this.sprite= new Deposito<Producto>();
@@ -60,7 +59,7 @@ public class Expendedor{
         this.chokita= new Deposito<Producto>();
         this.super8= new Deposito<Producto>();
         this.monVuelto= new Deposito<Moneda>();
-        for (int i=0; i<numProductos;i++){
+        for (int i=0; i<15;i++){
             snicker.addObjeto(new Snicker(100+i));
             chokita.addObjeto(new Chokita(200+i));
             super8.addObjeto(new Super8(300+i));
