@@ -4,7 +4,7 @@ package moneda;
  * Clase abstracta que represnta una moneda de forma generica
  * sirve de molde para monedas de diferentes valores
  */
-public abstract class Moneda{
+public abstract class Moneda implements Comparable<Moneda>{
     /**
      * Metodo constructor de la clase Moneda
      */
@@ -26,4 +26,14 @@ public abstract class Moneda{
      * @return Numero del valor de la moneda
      */
     public abstract int getValor();
+
+    /**
+     * Compara esta moneda con otra por valor.
+     * @param otraMoneda Moneda a comparar.
+     * @return Negativo, cero o positivo según el valor.
+     */
+    @Override
+    public int compareTo(Moneda otraMoneda){
+        return Integer.compare(this.getValor(), otraMoneda.getValor());
+    }
 }
