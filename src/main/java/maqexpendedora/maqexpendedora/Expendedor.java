@@ -92,8 +92,8 @@ public class Expendedor{
             throws PagoInsuficienteException, NoHayProductoException{
         int pagoTotal=calcularTotal(pagoMonedas);
         Producto p = null;
-
-        if(a.getValor() >= product.getPrecio()){
+        //Comprar el producto si es posible
+        if(pagoTotal>= product.getPrecio()){
             switch (product){
                 case SNICKER: p=snicker.getObjeto();break;
                 case CHOKITA:p=chokita.getObjeto();break;
@@ -102,14 +102,23 @@ public class Expendedor{
                 case FANTA:p=fanta.getObjeto();break;
                 case SPRITE:p=sprite.getObjeto();break;
             }
-            if (p !=null){ //calcular vuelto a devolver
-                int vuelto = a.getValor() - product.precio;
-                int cantMonedas100 = vuelto/100;//cantidad de monedas
-
-                for (int i = 0; i < cantMonedas100; i++) {//se genera la cantidad de monedas y se meten al deposito
-                    monVuelto.addObjeto(new Moneda100()); // se crea para el vuelto
+            //Calcular vuelto a devolver
+            if (p !=null){
+                // pasar de temp a recibidas
+                Moneda mt = monTemp.getObjeto();
+                while (mt != null) {
+                    monRecibidas.addObjeto(mt);
+                    mt = monTemp.getObjeto();
                 }
-                return p;
+                depEspecial.addObjeto(p);
+                int vuelto = pagoTotal - product.precio;
+                int[]valores={1500,1000,500,100};
+                for(int valor:valores){
+                    while(vuelto>=valor){
+                        monVuelto.addObjeto(crearMoneda(valor));
+                        vuelto=vuelto-valor;
+                    }
+                }
             }
             else { //en caso de tipo de bebida pedido inexistente o fuera de stock se devuelve la moneda
 
@@ -129,5 +138,36 @@ public class Expendedor{
      */
     public Moneda getVuelto(){
         return monVuelto.getObjeto();
+    }
+
+    /**
+     * Calcula el total de monedas recibidas y las guarda en monRecibidas
+     * Se usa exclusivamente para calcular el pago recibido
+     * @param monedas Deposito de monedas a calcular
+     * @return Total acumulado de las monedas
+     */
+    private int calcularTotal(Deposito<Moneda> monedas) {
+        int total = 0;
+        Moneda m = monedas.getObjeto();
+        while (m != null) {
+            total += m.getValor();
+            monTemp.addObjeto(m); // temporal
+            m = monedas.getObjeto();
+        }
+        return total;
+    }
+
+    /**
+     * Crea una moneda del valor especificado, se utiliza de manera local en comprarProducto
+     * @param valor Valor de la moneda a crear.
+     * @return Moneda del valor indicado.
+     */
+    private Moneda crearMoneda(int valor) {
+        switch (valor) {
+            case 1500: return new Moneda1500();
+            case 1000: return new Moneda1000();
+            case 500:  return new Moneda500();
+            default:   return new Moneda100();
+        }
     }
 }
