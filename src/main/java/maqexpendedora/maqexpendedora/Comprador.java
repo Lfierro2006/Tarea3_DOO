@@ -1,5 +1,6 @@
 package maqexpendedora;
 
+import deposito.Deposito;
 import excepciones.*;
 import moneda.*;
 import producto.*;
@@ -19,15 +20,6 @@ public class Comprador{
         this.vuelto=new Deposito<Moneda>();
         this.inventarioProductos=new Deposito<Producto>();
     }
-
-    /**
-     * Obtener el vuelto de la compra
-     * @return Numero entero que representa el el valor del vuelto
-     */
-    public int cuantoVuelto(){
-        return this.vuelto;
-    }
-
     /**
      * Identificar que se consumio
      * @return String que representa lo que se consumio luego de interactuar con la maquina
