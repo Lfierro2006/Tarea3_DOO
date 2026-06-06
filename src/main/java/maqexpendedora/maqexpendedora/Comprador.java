@@ -21,7 +21,7 @@ public class Comprador{
      * @param product El tipo de producto que se quiere comprar
      * @param exp La maquina expendedora de la cual se esta comprando
      */
-    public Comprador(Moneda m, Expendedor.nomProduct product, Expendedor exp) {
+    public Comprador(Moneda m, Expendedor.NomProduct product, Expendedor exp) {
         this.vuelto = 0;
         String saborTemp = null; // guardamos el sabor en una variable temporal
         try { //intentamos la compra

@@ -21,7 +21,7 @@ public class Expendedor{
     /**
      * Enumeracion que representa los productos y el costo de cada uno
      */
-    public enum nomProduct{
+    public enum NomProduct {
         SNICKER(500),
         CHOKITA(400),
         SUPER8(500),
@@ -34,7 +34,7 @@ public class Expendedor{
          * constructor del enumProduct
          * @param precio numero entero, valor especifico del producto
          */
-        nomProduct(int precio) {
+        NomProduct(int precio) {
         this.precio=precio;
         }
 
@@ -81,7 +81,7 @@ public class Expendedor{
      * @throws NoHayProductoException    Si no queda stock del producto solicitado en el depósito.
      */
 
-    public Producto comprarProducto(Moneda a,nomProduct product)
+    public Producto comprarProducto(Moneda a, NomProduct product)
             throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException{
         if(a==null){
             throw new PagoIncorrectoException("Error: Moneda nula o no ingresada.");
