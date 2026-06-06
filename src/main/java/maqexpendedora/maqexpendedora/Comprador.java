@@ -35,5 +35,17 @@ public class Comprador{
     public String queConsumiste(){
         return  this.sabor;
     }
-}
+    public void comprar(Expendedor.NomProduct product, Expendedor exp){
+        try {
+            exp.comprarProducto(inventario,product);
+        }catch (NoHayProductoException | PagoInsuficienteException e){
+            System.out.println(e.getMessage());
+        }
+        Moneda m= exp.getVuelto();
+        while(m!=null){
+            vuelto.addObjeto(m);
+            m= exp.getVuelto();
+        }
+    }
 
+}
