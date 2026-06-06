@@ -93,6 +93,9 @@ public class Expendedor{
         if(a==null){
             throw new PagoIncorrectoException("Error: Moneda nula o no ingresada.");
         }
+    public void comprarProducto(Deposito<Moneda> pagoMonedas, NomProduct product)
+            throws PagoInsuficienteException, NoHayProductoException{
+        int pagoTotal=calcularTotal(pagoMonedas);
         Producto p = null;
 
         if(a.getValor() >= product.getPrecio()){
