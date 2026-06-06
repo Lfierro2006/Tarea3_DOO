@@ -120,14 +120,25 @@ public class Expendedor{
                     }
                 }
             }
-            else { //en caso de tipo de bebida pedido inexistente o fuera de stock se devuelve la moneda
-
-                monVuelto.addObjeto(a);
+            //En caso de no haber stock se devuelve el dinero
+            else {
+                devolverMonedas(pagoTotal);
+                // limpiar temp
+                Moneda mt = monTemp.getObjeto();
+                while (mt != null){
+                    mt = monTemp.getObjeto();
+                }
                 throw new NoHayProductoException("Error: No queda stock de " + product.name());
             }
         }
-        else{ // en caso de que no alcanza la plata tambien se devuelve la moneda
-            monVuelto.addObjeto(a);
+        // en caso de que la plata sea insuficiente se devuelve el dinero
+        else{
+            devolverMonedas(pagoTotal);
+            // limpiar temp
+            Moneda mt = monTemp.getObjeto();
+            while (mt != null){
+                mt = monTemp.getObjeto();
+            }
             throw new PagoInsuficienteException("Error: Dinero insuficiente para comprar " + product.name());
         }
     }
@@ -170,4 +181,19 @@ public class Expendedor{
             default:   return new Moneda100();
         }
     }
+    /**
+     * Devuelve el monto indicado en monedas al deposito de vuelto.
+     * Se usa cuando la compra no es exitosa.
+     * @param monto Monto a devolver.
+     */
+    private void devolverMonedas(int monto) {
+        int[]valores={1500,1000,500,100};
+        for(int valor:valores){
+            while(monto>=valor){
+                monVuelto.addObjeto(crearMoneda(valor));
+                monto=monto-valor;
+            }
+        }
+    }
+
 }
