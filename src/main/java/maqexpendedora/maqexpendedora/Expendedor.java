@@ -88,11 +88,6 @@ public class Expendedor{
      * @throws NoHayProductoException    Si no queda stock del producto solicitado en el depósito.
      */
 
-    public Producto comprarProducto(Moneda a, NomProduct product)
-            throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException{
-        if(a==null){
-            throw new PagoIncorrectoException("Error: Moneda nula o no ingresada.");
-        }
     public void comprarProducto(Deposito<Moneda> pagoMonedas, NomProduct product)
             throws PagoInsuficienteException, NoHayProductoException{
         int pagoTotal=calcularTotal(pagoMonedas);
