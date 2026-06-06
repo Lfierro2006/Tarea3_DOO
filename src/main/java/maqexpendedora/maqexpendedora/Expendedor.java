@@ -76,16 +76,12 @@ public class Expendedor{
         }
     }
 
-    /**
-     * Ejecuta la compra del producto, con la moneda y el producto especificado
-     * verifica que sea valido, que haya stock, el pago sea suficiente y que el producto solicitado exista
-     * si la compra es exitosa, se da el vuelto
-     * @param a La moneda que se ingresa a la maquina para pagar
-     * @param product El producto que se desea comprar
-     * @return el producto extraido del expendedor
-     * @throws PagoIncorrectoException   Si la moneda ingresada es null.
-     * @throws PagoInsuficienteException Si el valor de la moneda es menor al precio del producto.
-     * @throws NoHayProductoException    Si no queda stock del producto solicitado en el depósito.
+    /** Ejecuta la compra del producto con las monedas acumuladas.
+     * Verifica stock y pago suficiente.
+     * @param pagoMonedas Deposito con las monedas de pago.
+     * @param product El producto que se desea comprar.
+     * @throws PagoInsuficienteException Si el total de monedas es menor al precio.
+     * @throws NoHayProductoException Si no queda stock del producto solicitado.
      */
 
     public void comprarProducto(Deposito<Moneda> pagoMonedas, NomProduct product)
@@ -144,8 +140,8 @@ public class Expendedor{
     }
 
     /**
-     * saca moneda del deposito del vuelto
-     * @return moneda de 100 correspondiente al vuelto
+     * Saca moneda del deposito del vuelto
+     * @return moneda dependiendo del vuelto, null si no hay
      */
     public Moneda getVuelto(){
         return monVuelto.getObjeto();
