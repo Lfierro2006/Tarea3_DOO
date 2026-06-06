@@ -21,11 +21,11 @@ public class Comprador{
         this.inventarioProductos=new Deposito<Producto>();
     }
     /**
-     * Identificar que se consumio
-     * @return String que representa lo que se consumio luego de interactuar con la maquina
+     * Agrega una moneda al inventario del comprador.
+     * @param m Moneda a agregar.
      */
-    public String queConsumiste(){
-        return  this.sabor;
+    public void agregarMoneda(Moneda m){
+        inventario.addObjeto(m);
     }
     public void comprar(Expendedor.NomProduct product, Expendedor exp){
         try {
