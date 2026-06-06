@@ -36,4 +36,13 @@ public abstract class Moneda implements Comparable<Moneda>{
     public int compareTo(Moneda otraMoneda){
         return Integer.compare(this.getValor(), otraMoneda.getValor());
     }
+
+    /**
+     * Representación en texto de la moneda.
+     * @return String con valor y número de serie.
+     */
+    @Override
+    public String toString(){
+        return "Valor: "+this.getValor()+" | Serie: "+this.getSerie();
+    }
 }
