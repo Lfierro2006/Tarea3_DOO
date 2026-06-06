@@ -152,6 +152,14 @@ public class Expendedor{
     }
 
     /**
+     * Extrae el producto comprado del deposito especial
+     * @return Producto comprado, null si no hay
+     */
+    public Producto getProducto(){
+        return depEspecial.getObjeto();
+    }
+
+    /**
      * Calcula el total de monedas recibidas y las guarda en monRecibidas
      * Se usa exclusivamente para calcular el pago recibido
      * @param monedas Deposito de monedas a calcular
