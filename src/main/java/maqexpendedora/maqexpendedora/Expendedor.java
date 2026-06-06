@@ -1,6 +1,7 @@
 package maqexpendedora;
 
 import deposito.Deposito;
+import deposito.DepositoEspecial;
 import moneda.*;
 import producto.*;
 import excepciones.*;
@@ -17,6 +18,9 @@ public class Expendedor{
     private final Deposito<Producto> chokita;
     private final Deposito<Producto> super8;
     private final Deposito<Moneda> monVuelto;
+    private final Deposito<Moneda> monRecibidas;
+    private final Deposito<Moneda> monTemp;
+    private final DepositoEspecial depEspecial;
 
     /**
      * Enumeracion que representa los productos y el costo de cada uno
@@ -59,6 +63,9 @@ public class Expendedor{
         this.chokita= new Deposito<Producto>();
         this.super8= new Deposito<Producto>();
         this.monVuelto= new Deposito<Moneda>();
+        this.monTemp= new Deposito<Moneda>();
+        this.monRecibidas= new Deposito<Moneda>();
+        this.depEspecial=DepositoEspecial.getInstancia();
         for (int i=0; i<15;i++){
             snicker.addObjeto(new Snicker(100+i));
             chokita.addObjeto(new Chokita(200+i));
