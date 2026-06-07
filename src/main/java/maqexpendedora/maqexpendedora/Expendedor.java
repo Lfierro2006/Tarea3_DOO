@@ -140,14 +140,6 @@ public class Expendedor{
     }
 
     /**
-     * Saca moneda del deposito del vuelto
-     * @return moneda dependiendo del vuelto, null si no hay
-     */
-    public Moneda getVuelto(){
-        return monVuelto.getObjeto();
-    }
-
-    /**
      * Extrae el producto comprado del deposito especial
      * @return Producto comprado, null si no hay
      */
@@ -170,6 +162,14 @@ public class Expendedor{
             m = monedas.getObjeto();
         }
         return total;
+    }
+
+    /**
+     * Elimina una moneda del tipo especifico del deposito (una de 100,500,1000 o 1500) de vuelto.
+     * @param m Moneda a eliminar.
+     */
+    public void remVuelto(Moneda m) {
+        monVuelto.remObjeto(m);
     }
 
     /**
