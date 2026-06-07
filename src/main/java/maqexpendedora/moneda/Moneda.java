@@ -13,11 +13,11 @@ public abstract class Moneda implements Comparable<Moneda>{
     }
 
     /**
-     * Consguir la referencia de la instancia actual
-     * @return Instancia de la moneda actual
+     * Obtener el número de serie único de la moneda.
+     * @return Número de serie basado en el hashCode de la moneda
      */
-    public Moneda getSerie() {
-        return this;
+    public int getSerie() {
+        return this.hashCode();
     }
 
     /**
