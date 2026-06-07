@@ -28,6 +28,14 @@ public class Deposito<T>{
         }
 
     /**
+     * Elimina el objeto especificado
+     * @param objeto Elemento de tipo T que se eliminara del deposito
+     */
+    public void remObjeto(T objeto){
+        lista.remove(objeto);
+    }
+
+    /**
      * Extraer objeto de la lista comprobando si no esta vacia
      * @return Objeto de tipo T extraido, o null si esta vacio el deposito
      */
@@ -39,16 +47,12 @@ public class Deposito<T>{
         }
     }
 
-/* Deposito de monedas para unirlo al deposito normal
-class DepositoM {
-    private ArrayList<Moneda> mlist;
-
-    public DepositoM() {
-        this.mlist = new ArrayList<Moneda>();
-    }
-
-    public void addMoneda(Moneda m) {
-        mlist.add(m);
+    /**
+     * Indica si el deposito esta vacio
+     * @return true si no hay elementos
+     */
+    public boolean isEmpty(){
+        return lista.isEmpty();
     }
 
 }
