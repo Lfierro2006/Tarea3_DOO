@@ -14,12 +14,11 @@ public class Chokita extends Dulce {
     }
 
     /**
-     * Simula la acciónde comerse una Chokita.
-     * @return Un string que representa lo consumido.
+     * Obtener el nombre del producto Chokita
+     * @return String con el nombre "chokita"
      */
-
     @Override
-    public String consumir() {
+    public String getNombre() {
         return "chokita";
     }
 }

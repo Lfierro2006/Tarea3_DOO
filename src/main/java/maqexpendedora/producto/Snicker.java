@@ -15,12 +15,11 @@ public class Snicker extends Dulce {
     }
 
     /**
-     * Representa el acto de consumir el producto
-     * @return String que representa que el producto fue consumido
+     * Obtener el nombre del producto Snicker
+     * @return String con el nombre "snicker"
      */
-
     @Override
-    public String consumir() {
+    public String getNombre() {
         return "snicker";
     }
 }

@@ -15,11 +15,11 @@ public class Sprite extends Bebida {
     }
 
     /**
-     * Representa la accion de consumir el producto
-     * @return String que simula que la acion fue ejecutada
+     * Obtener el nombre del producto Sprite
+     * @return String con el nombre "Sprite"
      */
     @Override
-    public String consumir() {
+    public String getNombre() {
         return "sprite";
     }
 

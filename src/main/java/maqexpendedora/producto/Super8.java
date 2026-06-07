@@ -15,12 +15,11 @@ public class Super8 extends Dulce {
     }
 
     /**
-     * Representa el acto de consumir el Super8
-     * @return String que confirma la accion de consumir()
+     * Obtener el nombre del producto Super8
+     * @return String con el nombre "super8"
      */
-
     @Override
-    public String consumir() {
+    public String getNombre() {
         return "super8";
     }
 }

@@ -2,7 +2,7 @@ package producto;
 
 /**
  * Representa una Bebida tipo CocaCola
- * Hereda de Bebida y crea su propio "consumir"
+ * Hereda de Bebida y crea su propio "getNombre"
  */
 
 public class CocaCola extends Bebida {
@@ -16,11 +16,11 @@ public class CocaCola extends Bebida {
     }
 
     /**
-     * Simula el beber el producto CocaCola
-     * @return Un String que reprenta que CocaCola es consumido
+     * Obtener el nombre del producto CocaCola.
+     * @return String con el nombre "cocacola".
      */
     @Override
-    public String consumir() {
+    public String getNombre() {
         return "cocacola";
     }
 }

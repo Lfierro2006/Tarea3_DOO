@@ -3,7 +3,7 @@ package producto;
 /**
  * Representa una Fanta
  * Hereda de la clase Bebida
- * Crea su propia forma de consumir
+ * Crea su propia forma de getNombre
  */
 public class Fanta extends Bebida {
     /**
@@ -16,11 +16,11 @@ public class Fanta extends Bebida {
     }
 
     /**
-     * Simula la accion de beber la fanta
-     * @return String representando lo consumido
+     * Obtener el nombre del producto Fanta
+     * @return String con el nombre "fanta"
      */
     @Override
-    public String consumir() {
+    public String getNombre() {
         return "fanta";
     }
 }

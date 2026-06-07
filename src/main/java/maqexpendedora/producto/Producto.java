@@ -14,7 +14,6 @@ public abstract class Producto {
      * Otorga un numero de serie al producto al momento de ser istanciado
      * @param serie Numero que identifica a cada producto
      */
-
     public Producto (int serie){
         this.serie = serie;
     }
@@ -24,17 +23,22 @@ public abstract class Producto {
      *
      * @return Numero de serie unico, representa al producto
      */
-
     public int getSerie() {
         return serie;
     }
 
     /**
-     * Metodo abstracto que representa que el producto fue consumido
-     * Ya que es abstracta cada subclase tiene implementar este metodo
-     * y retornar el String de cada producto especifico
-     * @return String que
+     * Obtener el nombre del producto.
+     * @return String que representa el tipo de producto.
      */
+    public abstract String getNombre();
 
-    public abstract String consumir();
+    /**
+     * Representación en texto del producto.
+     * @return String con tipo y número de serie.
+     */
+    @Override
+    public String toString(){
+        return "Producto: "+ getNombre()+" | Serie: "+this.getSerie();
+    }
 }
