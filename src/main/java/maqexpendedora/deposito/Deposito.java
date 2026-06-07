@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * @param <T> El tipo de elemento que se almacenara en el deposito
  */
 
-public class Deposito<T>{ // clase generica
-    private ArrayList<T> lista; //se define para que solo maneje del tipo T
+public class Deposito<T>{
+    private ArrayList<T> lista;
 
     /**
      * Constructor de la calse Deposito
@@ -17,7 +17,7 @@ public class Deposito<T>{ // clase generica
      */
     public Deposito(){
         this.lista= new ArrayList<T>();
-    } //cuando se hace el arraylist le pasamos el tipo T
+    }
 
     /**
      * Agrega el objeto
@@ -31,20 +31,13 @@ public class Deposito<T>{ // clase generica
      * Extraer objeto de la lista comprobando si no esta vacia
      * @return Objeto de tipo T extraido, o null si esta vacio el deposito
      */
-    public T getObjeto() { // extrae el objeto si hay disponible o regresa null si no
+    public T getObjeto() {
         if (lista.isEmpty()) {
             return null;
         }else{
             return  lista.remove(0);
         }
     }
-}
-
-
-
-
-
-
 
 /* Deposito de monedas para unirlo al deposito normal
 class DepositoM {
@@ -58,13 +51,4 @@ class DepositoM {
         mlist.add(m);
     }
 
-    public Moneda getMoneda() {
-            if (mlist.size() == 0) {
-                return null;
-            }
-            else{
-            return mlist.remove(0);
-            }
-    }
 }
- */
