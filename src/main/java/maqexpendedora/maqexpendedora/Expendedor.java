@@ -173,6 +173,18 @@ public class Expendedor{
     }
 
     /**
+     * Rellena los depositos de productos que esten vacios con 15 unidades.
+     */
+    public void rellenarDepositos(){
+        if(snicker.isEmpty()) for(int i=0; i<15; i++) snicker.addObjeto(new Snicker(100+i));
+        if(chokita.isEmpty()) for(int i=0; i<15; i++) chokita.addObjeto(new Chokita(200+i));
+        if(super8.isEmpty())  for(int i=0; i<15; i++) super8.addObjeto(new Super8(300+i));
+        if(coca.isEmpty())    for(int i=0; i<15; i++) coca.addObjeto(new CocaCola(400+i));
+        if(fanta.isEmpty())   for(int i=0; i<15; i++) fanta.addObjeto(new Fanta(500+i));
+        if(sprite.isEmpty())  for(int i=0; i<15; i++) sprite.addObjeto(new Sprite(600+i));
+    }
+
+    /**
      * Crea una moneda del valor especificado, se utiliza de manera local en comprarProducto
      * @param valor Valor de la moneda a crear.
      * @return Moneda del valor indicado.
