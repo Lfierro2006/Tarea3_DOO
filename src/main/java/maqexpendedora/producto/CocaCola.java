@@ -1,4 +1,4 @@
-package producto;
+package maqexpendedora.producto;
 
 /**
  * Representa una Bebida tipo CocaCola
