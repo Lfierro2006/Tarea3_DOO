@@ -10,43 +10,53 @@ import maqexpendedora.*;
 
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor;
-    private int ancho = 748;
-    private int largo = 1198;
-
+    private int ancho = 502;
+    private int alto = 850;
+    private int x,y;
     private Image imgMaquina;
     private Image imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8;
 
     private DepositoProductoVisual depCoca, depFanta, depSprite, depSnicker, depChokita, depSuper8;
     private DepositoEspecialVisual bandejaVisual;
 
-    public PanelExpendedor(Expendedor expendedor){
+    public PanelExpendedor(int x, int y, Expendedor expendedor){
+        this.x=x;
+        this.y=y;
         this.expendedor = expendedor;
         this.setBackground(Color.DARK_GRAY); // Fondo por si falta una imagen
         cargarImagenes();
 
-        depCoca= new DepositoProductoVisual(34, 356, expendedor.getDepCoca(), imgCoca);
-        depFanta= new DepositoProductoVisual(34, 457, expendedor.getDepFanta(), imgFanta);
-        depSprite= new DepositoProductoVisual(34, 560, expendedor.getDepSprite(), imgSprite);
-        depSnicker = new DepositoProductoVisual(34, 45, expendedor.getDepSnicker(), imgSnicker);
-        depChokita= new DepositoProductoVisual(34, 145, expendedor.getDepChokita(), imgChokita);
-        depSuper8 = new DepositoProductoVisual(34, 247, expendedor.getDepSuper8(), imgSuper8);
+        depCoca= new DepositoProductoVisual(36, 358, expendedor.getDepCoca(), imgCoca);
+        depFanta= new DepositoProductoVisual(36, 459, expendedor.getDepFanta(), imgFanta);
+        depSprite= new DepositoProductoVisual(36, 563, expendedor.getDepSprite(), imgSprite);
+        depSnicker = new DepositoProductoVisual(36, 48, expendedor.getDepSnicker(), imgSnicker);
+        depChokita= new DepositoProductoVisual(36, 148, expendedor.getDepChokita(), imgChokita);
+        depSuper8 = new DepositoProductoVisual(36, 254, expendedor.getDepSuper8(), imgSuper8);
         ToolTipManager.sharedInstance().registerComponent(this);
         bandejaVisual = new DepositoEspecialVisual(120, 520, expendedor.getDepEspecial(), imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8);
 
     }
+    private void cargarImagenes() {
+        try {
 
+            imgMaquina = ImageIO.read(new File("src/main/java/Sprites/Maquina.png"));
+            imgCoca = ImageIO.read(new File("src/main/java/Sprites/CocaCola.png"));
+            imgFanta = ImageIO.read(new File("src/main/java/Sprites/Fanta.png"));
+            imgSprite = ImageIO.read(new File("src/main/java/Sprites/Sprite.png"));
+            imgSnicker = ImageIO.read(new File("src/main/java/Sprites/Snicker.png"));
+            imgChokita = ImageIO.read(new File("src/main/java/Sprites/Chokita.png"));
+            imgSuper8 = ImageIO.read(new File("src/main/java/Sprites/Super8.png"));
+
+        } catch (IOException e) {
+            System.out.println("Error al cargar una o más imágenes: " + e.getMessage());
+        }
+    }
     public void procesarClick(int clickX, int clickY) {
         // Validar si el click ocurrió dentro de los límites de este PanelExpendedor
-        if (clickX >= this.getX() && clickX <= this.getX() + this.getWidth() &&
-                clickY >= this.getY() && clickY <= this.getY() + this.getHeight()) {
+        if (clickX >= this.x && clickX <= this.x + this.ancho && clickY >= this.y && clickY <= this.y + this.alto) {
 
-            System.out.println("El click cayó dentro del Expendedor.");
-
-            //Convertir a coordenadas locales (0,0 en la esquina del expendedor)
-
-            int localX = clickX - this.getX();
-            int localY = clickY - this.getY();
-
+            int localX = clickX - this.x;
+            int localY = clickY - this.y;
             // Variable para controlar si el usuario interactuó con un botón específico
             boolean seHizoInteraccion = false;
 
@@ -81,30 +91,19 @@ public class PanelExpendedor extends JPanel {
         }
     }
 
-    private void cargarImagenes() {
-        try {
 
-            imgMaquina = ImageIO.read(new File("src/main/java/Sprites/Maquina.png"));
-            imgCoca = ImageIO.read(new File("src/main/java/Sprites/CocaCola.png"));
-            imgFanta = ImageIO.read(new File("src/main/java/Sprites/Fanta.png"));
-            imgSprite = ImageIO.read(new File("src/main/java/Sprites/Sprite.png"));
-            imgSnicker = ImageIO.read(new File("src/main/java/Sprites/Snicker.png"));
-            imgChokita = ImageIO.read(new File("src/main/java/Sprites/Chokita.png"));
-            imgSuper8 = ImageIO.read(new File("src/main/java/Sprites/Super8.png"));
-
-        } catch (IOException e) {
-            System.out.println("Error al cargar una o más imágenes: " + e.getMessage());
-        }
+    public DepositoEspecialVisual getBandejaVisual() {
+        return this.bandejaVisual;
     }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Limpia el contenedor
 
         //Dibujar el mueble de la máquina usando el tamaño completo asignado al panel
         if (imgMaquina != null) {
-            g.drawImage(imgMaquina, 0, 0, this.getWidth(), this.getHeight(), null);
+            g.drawImage(imgMaquina, 3, 3, ancho, alto, null);
         }
+        // Llamado en cascada a las vistas de depósitos y productos
         depCoca.paintComponent(g);
         depFanta.paintComponent(g);
         depSprite.paintComponent(g);
