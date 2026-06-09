@@ -1,14 +1,12 @@
 package LogicaGrafica;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
 import maqexpendedora.*;
-import producto.*;
 
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor;
@@ -18,36 +16,81 @@ public class PanelExpendedor extends JPanel {
     private Image imgMaquina;
     private Image imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8;
 
-    private DepositoVisual depCoca, depFanta, depSprite, depSnicker, depChokita, depSuper8;
+    private DepositoProductoVisual depCoca, depFanta, depSprite, depSnicker, depChokita, depSuper8;
+    private DepositoEspecialVisual bandejaVisual;
 
     public PanelExpendedor(Expendedor expendedor){
         this.expendedor = expendedor;
         this.setBackground(Color.DARK_GRAY); // Fondo por si falta una imagen
         cargarImagenes();
 
-        depCoca= new DepositoVisual(40, 80, expendedor.getDepCoca(), imgCoca);
-        depFanta= new DepositoVisual(40, 160, expendedor.getDepFanta(), imgFanta);
-        depSprite= new DepositoVisual(40, 240, expendedor.getDepSprite(), imgSprite);
-        depSnicker = new DepositoVisual(40, 320, expendedor.getDepSnicker(), imgSnicker);
-        depChokita= new DepositoVisual(40, 400, expendedor.getDepChokita(), imgChokita);
-        depSuper8 = new DepositoVisual(40, 480, expendedor.getDepSuper8(), imgSuper8);
-
-
-
-
-
+        depCoca= new DepositoProductoVisual(34, 356, expendedor.getDepCoca(), imgCoca);
+        depFanta= new DepositoProductoVisual(34, 457, expendedor.getDepFanta(), imgFanta);
+        depSprite= new DepositoProductoVisual(34, 560, expendedor.getDepSprite(), imgSprite);
+        depSnicker = new DepositoProductoVisual(34, 45, expendedor.getDepSnicker(), imgSnicker);
+        depChokita= new DepositoProductoVisual(34, 145, expendedor.getDepChokita(), imgChokita);
+        depSuper8 = new DepositoProductoVisual(34, 247, expendedor.getDepSuper8(), imgSuper8);
+        ToolTipManager.sharedInstance().registerComponent(this);
+        bandejaVisual = new DepositoEspecialVisual(120, 520, expendedor.getDepEspecial(), imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8);
 
     }
+
+    public void procesarClick(int clickX, int clickY) {
+        // Validar si el click ocurrió dentro de los límites de este PanelExpendedor
+        if (clickX >= this.getX() && clickX <= this.getX() + this.getWidth() &&
+                clickY >= this.getY() && clickY <= this.getY() + this.getHeight()) {
+
+            System.out.println("El click cayó dentro del Expendedor.");
+
+            //Convertir a coordenadas locales (0,0 en la esquina del expendedor)
+
+            int localX = clickX - this.getX();
+            int localY = clickY - this.getY();
+
+            // Variable para controlar si el usuario interactuó con un botón específico
+            boolean seHizoInteraccion = false;
+
+            //Hitbox del botón para comprar Snicker
+            if (localX >= 380 && localX <= 440 && localY >= 100 && localY <= 140) {
+                System.out.println("Zona de botones: Snicker detectado.");
+                seHizoInteraccion = true;
+            }
+
+            //Zona del depósito especial (bandeja de salida)
+            if (localX >= 50 && localX <= 350 && localY >= 500 && localY <= 600) {
+                System.out.println("Zona de bandeja de salida detectada.");
+                seHizoInteraccion = true;
+            }
+
+            //ME FALTA AÑADIR MAS HITBOX
+
+            //Si el click fue dentro del expendedor pero NO tocó
+            // ningún botón o bandeja, se deben rellenar los depósitos vacíos.
+            if (!seHizoInteraccion) {
+                System.out.println("Click en espacio vacío del expendedor: Rellenando depósitos...");
+                expendedor.rellenarDepositos();
+
+                // Al rellenar los ArrayList lógicos, debe refrescar las repisas visuales
+                depCoca.actualizarVistas();
+                depFanta.actualizarVistas();
+                depSprite.actualizarVistas();
+                depSnicker.actualizarVistas();
+                depChokita.actualizarVistas();
+                depSuper8.actualizarVistas();
+            }
+        }
+    }
+
     private void cargarImagenes() {
         try {
 
-            imgMaquina = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/Maquina.png"));
-            imgCoca = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/CocaCola.png"));
-            imgFanta = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/Fanta.png"));
-            imgSprite = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/Sprite.png"));
-            imgSnicker = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/Snicker.png"));
-            imgChokita = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/Chokita.png"));
-            imgSuper8 = ImageIO.read(new File("src/main/java/maqexpendedora/Sprites/Super8.png"));
+            imgMaquina = ImageIO.read(new File("src/main/java/Sprites/Maquina.png"));
+            imgCoca = ImageIO.read(new File("src/main/java/Sprites/CocaCola.png"));
+            imgFanta = ImageIO.read(new File("src/main/java/Sprites/Fanta.png"));
+            imgSprite = ImageIO.read(new File("src/main/java/Sprites/Sprite.png"));
+            imgSnicker = ImageIO.read(new File("src/main/java/Sprites/Snicker.png"));
+            imgChokita = ImageIO.read(new File("src/main/java/Sprites/Chokita.png"));
+            imgSuper8 = ImageIO.read(new File("src/main/java/Sprites/Super8.png"));
 
         } catch (IOException e) {
             System.out.println("Error al cargar una o más imágenes: " + e.getMessage());
@@ -58,37 +101,51 @@ public class PanelExpendedor extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Limpia el contenedor
 
-        // 1. Dibujar el mueble de la máquina usando el tamaño completo asignado al panel
+        //Dibujar el mueble de la máquina usando el tamaño completo asignado al panel
         if (imgMaquina != null) {
             g.drawImage(imgMaquina, 0, 0, this.getWidth(), this.getHeight(), null);
         }
+        depCoca.paintComponent(g);
+        depFanta.paintComponent(g);
+        depSprite.paintComponent(g);
+        depSnicker.paintComponent(g);
+        depChokita.paintComponent(g);
+        depSuper8.paintComponent(g);
+        bandejaVisual.paintComponent(g);
+    }
+    @Override
+    public String getToolTipText(MouseEvent event) {
+        int mouseX = event.getX();
+        int mouseY = event.getY();
 
-        // 2. Ejemplo de renderizado del stock actual (Vitrina)
-        // Puedes iterar sobre los depósitos lógicos para ver cuántos quedan y dibujarlos
-        if (!expendedor.getDepCoca().isEmpty() && imgCoca != null) {
-            // Dibujamos una CocaCola representativa en el estante correspondiente
-            g.drawImage(imgCoca, 40, 80, 35, 60, null);
-        }
+        String texto;
 
-        if (!expendedor.getDepChokita().isEmpty() && imgChokita != null) {
-            g.drawImage(imgChokita, 40, 160, 30, 60, null);
-        }
 
-        // 3. Dibujar el producto en el Depósito Especial (Bandeja de entrega)
-        Producto p = expendedor.getDepEspecial().verObjeto();
-        if (p != null) {
-            Image imgProductoEntregado = null;
-            if (p instanceof CocaCola) imgProductoEntregado = imgCoca;
-            else if (p instanceof Chokita) imgProductoEntregado = imgChokita;
-            else if (p instanceof Fanta) imgProductoEntregado = imgFanta;
-            else if (p instanceof Sprite) imgProductoEntregado = imgSprite;
-            else if (p instanceof Snicker) imgProductoEntregado = imgSnicker;
-            else if (p instanceof Super8) imgProductoEntregado = imgSuper8;
+        texto = depCoca.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto; //
 
-            if (imgProductoEntregado != null) {
-                // Posicionar abajo en el receptáculo de salida
-                g.drawImage(imgProductoEntregado, 120, 520, 40, 60, null);
-            }
-        }
+        texto = depFanta.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto;
+
+        texto = depSprite.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto;
+
+        // 2. Revisamos el estante de Snickers
+        texto = depSnicker.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto;
+
+        texto = depChokita.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto;
+
+        texto = depSuper8.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto;
+
+        texto = bandejaVisual.obtenerToolTip(mouseX, mouseY);
+        if (texto != null) return texto;
+
+
+        return null;
     }
 }
+
+
