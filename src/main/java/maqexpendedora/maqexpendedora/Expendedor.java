@@ -1,6 +1,8 @@
 package maqexpendedora.maqexpendedora;
 
 import maqexpendedora.deposito.*;
+import maqexpendedora.excepciones.NoHayProductoException;
+import maqexpendedora.excepciones.PagoInsuficienteException;
 import maqexpendedora.moneda.*;
 import maqexpendedora.producto.*;
 
