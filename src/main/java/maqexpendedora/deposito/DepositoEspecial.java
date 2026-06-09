@@ -51,4 +51,12 @@ public class DepositoEspecial {
     public boolean isEmpty() {
         return this.objeto == null;
     }
+
+    /**
+     * Permite ver el producto sin extraerlo del depósito.
+     * @return Producto almacenado, null si está vacío.
+     */
+    public Producto verObjeto() {
+        return this.objeto;
+    }
 }

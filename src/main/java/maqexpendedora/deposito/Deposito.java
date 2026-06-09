@@ -54,5 +54,6 @@ public class Deposito<T>{
     public boolean isEmpty(){
         return lista.isEmpty();
     }
+    public ArrayList<T> getLista() {return this.lista;}
 
 }
