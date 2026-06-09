@@ -66,7 +66,7 @@ public class Expendedor{
         this.monTemp= new Deposito<Moneda>();
         this.monRecibidas= new Deposito<Moneda>();
         this.depEspecial=DepositoEspecial.getInstancia();
-        for (int i=0; i<15;i++){
+        for (int i=0; i<4;i++){
             snicker.addObjeto(new Snicker(100+i));
             chokita.addObjeto(new Chokita(200+i));
             super8.addObjeto(new Super8(300+i));
@@ -173,15 +173,15 @@ public class Expendedor{
     }
 
     /**
-     * Rellena los depositos de productos que esten vacios con 15 unidades.
+     * Rellena los depositos de productos que esten vacios con 4 unidades.
      */
     public void rellenarDepositos(){
-        if(snicker.isEmpty()) for(int i=0; i<15; i++) snicker.addObjeto(new Snicker(100+i));
-        if(chokita.isEmpty()) for(int i=0; i<15; i++) chokita.addObjeto(new Chokita(200+i));
-        if(super8.isEmpty())  for(int i=0; i<15; i++) super8.addObjeto(new Super8(300+i));
-        if(coca.isEmpty())    for(int i=0; i<15; i++) coca.addObjeto(new CocaCola(400+i));
-        if(fanta.isEmpty())   for(int i=0; i<15; i++) fanta.addObjeto(new Fanta(500+i));
-        if(sprite.isEmpty())  for(int i=0; i<15; i++) sprite.addObjeto(new Sprite(600+i));
+        if(snicker.isEmpty()) for(int i=0; i<4; i++) snicker.addObjeto(new Snicker(100+i));
+        if(chokita.isEmpty()) for(int i=0; i<4; i++) chokita.addObjeto(new Chokita(200+i));
+        if(super8.isEmpty())  for(int i=0; i<4; i++) super8.addObjeto(new Super8(300+i));
+        if(coca.isEmpty())    for(int i=0; i<4; i++) coca.addObjeto(new CocaCola(400+i));
+        if(fanta.isEmpty())   for(int i=0; i<4; i++) fanta.addObjeto(new Fanta(500+i));
+        if(sprite.isEmpty())  for(int i=0; i<4; i++) sprite.addObjeto(new Sprite(600+i));
     }
 
     /**
@@ -211,5 +211,12 @@ public class Expendedor{
             }
         }
     }
-
+    public Deposito<Producto> getDepCoca() { return coca; }
+    public Deposito<Producto> getDepFanta() { return fanta; }
+    public Deposito<Producto> getDepSprite() { return sprite; }
+    public Deposito<Producto> getDepSnicker() { return snicker; }
+    public Deposito<Producto> getDepChokita() { return chokita; }
+    public Deposito<Producto> getDepSuper8() { return super8; }
+    public Deposito<Moneda> getMonVuelto() { return monVuelto; }
+    public DepositoEspecial getDepEspecial() { return depEspecial; }
 }
