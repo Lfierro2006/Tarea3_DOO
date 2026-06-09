@@ -91,5 +91,15 @@ public class Comprador{
         exp.remVuelto(monedaVuelto);
         inventario.addObjeto(monedaVuelto);
     }
+    public Deposito<Moneda> getInventario() {
+        return inventario;
+    }
 
+    public Deposito<Producto> getInventarioProductos() {
+        return inventarioProductos;
+    }
+
+    public Deposito<Moneda> getMonedero() {
+        return monedero;
+    }
 }
