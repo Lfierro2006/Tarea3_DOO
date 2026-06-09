@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 public class Ventana extends JFrame {
         public Ventana() {
             this.setTitle("Maquina Expendedora");
-            this.setSize(1100
+            this.setSize(1200
                     ,900);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setLocationRelativeTo(null);
