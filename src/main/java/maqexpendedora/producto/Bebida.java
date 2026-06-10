@@ -1,4 +1,4 @@
-package maqexpendedora.producto;
+package producto;
 
 /**
  *Clase abstracta que simula el comportamiento base de los productos bebida.

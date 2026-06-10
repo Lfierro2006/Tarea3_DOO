@@ -1,4 +1,4 @@
-package maqexpendedora.producto;
+package producto;
 
 /**
  * Clase que representa al producto Super8

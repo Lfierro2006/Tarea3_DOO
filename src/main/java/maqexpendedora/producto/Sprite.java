@@ -1,4 +1,4 @@
-package maqexpendedora.producto;
+package producto;
 
 /**
  * Clase que represneta al producto Sprite

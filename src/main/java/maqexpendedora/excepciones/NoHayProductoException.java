@@ -1,4 +1,4 @@
-package maqexpendedora.excepciones;
+package excepciones;
 
 /**
  * Error que se lanza cuando no hay del producto solicitado en stock

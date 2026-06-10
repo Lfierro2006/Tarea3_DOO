@@ -1,4 +1,4 @@
-package maqexpendedora.excepciones;
+package excepciones;
 /**
  * Error que se lanza al pagar de manera incorrecta el producto
  * Cuando se intenta pagar con NULL

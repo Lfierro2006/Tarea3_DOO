@@ -1,10 +1,10 @@
-package maqexpendedora.maqexpendedora;
+package maqexpendedora;
 
-import maqexpendedora.deposito.*;
-import maqexpendedora.excepciones.NoHayProductoException;
-import maqexpendedora.excepciones.PagoInsuficienteException;
-import maqexpendedora.moneda.*;
-import maqexpendedora.producto.*;
+import deposito.Deposito;
+import deposito.DepositoEspecial;
+import moneda.*;
+import producto.*;
+import excepciones.*;
 
 /**
  * Clase que representa la maquina expendedora con la que interactua el comprador
