@@ -5,7 +5,11 @@ import java.awt.Image;
 import java.util.ArrayList;
 import deposito.Deposito;
 import producto.*;
-
+/**
+ * Administrador visual encargado de representar gráficamente el inventario
+ * de productos comprados (la mochila) del comprador.
+ * Sincroniza el estado lógico del depósito con una cuadrícula visual de sprites.
+ */
 public class MochilaVisual {
     private int x, y;
     private Deposito<Producto> depositoLogico;
@@ -13,7 +17,20 @@ public class MochilaVisual {
 
     private Image imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8;
     private ArrayList<ProductoVisual> vistasProductos;
-
+    /**
+     * Constructor de la clase MochilaVisual.
+     * Inicializa la posición de la mochila, asigna el depósito lógico a observar
+     * y carga las imágenes correspondientes para cada tipo de producto.
+     * @param x Coordenada X global donde inicia el área de la mochila.
+     * @param y Coordenada Y global donde inicia el área de la mochila.
+     * @param depositoLogico El depósito lógico de productos del comprador que se va a representar.
+     * @param imgCoca Imagen correspondiente al producto CocaCola.
+     * @param imgFanta Imagen correspondiente al producto Fanta.
+     * @param imgSprite Imagen correspondiente al producto Sprite.
+     * @param imgSnicker Imagen correspondiente al producto Snicker.
+     * @param imgChokita Imagen correspondiente al producto Chokita.
+     * @param imgSuper8 Imagen correspondiente al producto Super8.
+     */
     public MochilaVisual(int x, int y, Deposito<Producto> depositoLogico, Image imgCoca, Image imgFanta, Image imgSprite, Image imgSnicker, Image imgChokita, Image imgSuper8) {
         this.x = x;
         this.y = y;
@@ -27,7 +44,10 @@ public class MochilaVisual {
         this.vistasProductos = new ArrayList<>();
         actualizarVistas();
     }
-
+    /**
+     * Sincroniza las vistas gráficas lo que hay en la "mochila" tras la compra,
+     * posicionando los productos horizontalmente con una separación constante.
+     */
     public void actualizarVistas() {
         vistasProductos.clear();
         ArrayList<Producto> listaLogica = depositoLogico.getLista();
@@ -58,7 +78,9 @@ public class MochilaVisual {
             }
         }
     }
-
+     /** Recibe las coordenadas del ratón y revisa si están sobre algún ProductoVisual.
+      * @return El texto del ToolTip, o null si el ratón no toca nada.
+      */
     public String obtenerToolTip(int mouseX, int mouseY) {
         for (ProductoVisual pv : vistasProductos) {
             if (pv.contains(mouseX, mouseY)) {
@@ -67,7 +89,10 @@ public class MochilaVisual {
         }
         return null;
     }
-
+    /**
+     * Dibuja todos los productos visuales que contiene este depósito.
+     * @param g Objeto Graphics utilizado para pintar.
+     */
     public void paintComponent(Graphics g) {
         for (ProductoVisual pv : vistasProductos) {
             pv.paintComponent(g);

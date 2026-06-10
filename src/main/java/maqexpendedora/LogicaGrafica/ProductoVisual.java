@@ -7,8 +7,8 @@ public class ProductoVisual {
     private int x, y;
     private Producto productoLogico;
     private Image imagen;
-    private int ANCHO = 16;
-    private int ALTO = 16;
+    private int ANCHO = 64;
+    private int ALTO = 64;
 
     public ProductoVisual(Producto productoLogico, Image imagen){
         this.productoLogico=productoLogico;

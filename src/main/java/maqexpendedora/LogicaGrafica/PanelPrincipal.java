@@ -8,13 +8,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * Panel principal que contiene y coordina las interfaces del expendedor y el comprador.
+ * Gestiona la inicialización de la lógica y la captura de eventos del ratón.
+ */
 public class PanelPrincipal extends JPanel {
     private PanelComprador com;
     private PanelExpendedor exp;
     private Comprador LogCom;
     private Expendedor LogExp;
-
+    /**
+     * Constructor del PanelPrincipal.
+     * Inicializa la lógica (Expendedor, Comprador), instancia los subpaneles visuales
+     * y configura el listener para procesar y derivar los clics del usuario.
+     */
     public PanelPrincipal(){
 
         this.setLayout(null);
@@ -71,6 +78,10 @@ public class PanelPrincipal extends JPanel {
         });
 
     }
+    /**
+     * Dibuja el fondo del panel principal y delega el dibujado a los subpaneles.
+     * @param g Objeto Graphics utilizado para pintar los componentes.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Pinta el fondo

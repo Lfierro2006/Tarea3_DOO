@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 import maqexpendedora.*;
-
+/**
+ * Panel gráfico que representa visualmente la máquina expendedora.
+ * Contiene las imágenes y vistas de los depósitos de productos.
+ */
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor;
     private int ANCHO = 502;
@@ -18,7 +21,12 @@ public class PanelExpendedor extends JPanel {
 
     private DepositoProductoVisual depCoca, depFanta, depSprite, depSnicker, depChokita, depSuper8;
     private DepositoEspecialVisual bandejaVisual;
-
+    /**
+     * Inicializa la vista del expendedor, carga sus imágenes y crea las vistas de los depósitos.
+     * @param x Coordenada X del panel.
+     * @param y Coordenada Y del panel.
+     * @param expendedor Instancia lógica del expendedor.
+     */
     public PanelExpendedor(int x, int y, Expendedor expendedor){
         this.x=x;
         this.y=y;
@@ -36,6 +44,9 @@ public class PanelExpendedor extends JPanel {
         bandejaVisual = new DepositoEspecialVisual(390, 650, expendedor.getDepEspecial(), imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8);
 
     }
+    /**
+     * Carga las imágenes de la máquina y los productos desde el sistema de archivos.
+     */
     private void cargarImagenes() {
         try {
 
@@ -53,6 +64,8 @@ public class PanelExpendedor extends JPanel {
     }
     /**
      * Revisa si el click cayó sobre la ranura para insertar monedas.
+     * @param clickX Rango de coordenadas a lo ancho
+     * @param clickY  Rango de cordenadas a lo alto
      */
     public boolean tocoRanuraMonedas(int clickX, int clickY) {
         if (clickX >= this.x && clickX <= this.x + this.ANCHO &&
@@ -70,7 +83,11 @@ public class PanelExpendedor extends JPanel {
         }
         return false;
     }
-
+    /**
+     * Revisa si el click cayó sobre alguno de los botones para elegir producto.
+     * @param clickX Rango de coordenadas a lo ancho
+     * @param clickY  Rango de cordenadas a lo alto
+     */
     public Expendedor.NomProduct obtenerBotonClickeado(int clickX, int clickY) { //Seleccion de productos en la barra lateral de la maquina
         if (clickX >= this.x && clickX <= this.x + this.ANCHO &&
                 clickY >= this.y && clickY <= this.y + this.ALTO) {
@@ -97,7 +114,11 @@ public class PanelExpendedor extends JPanel {
         }
         return null; // No tocó ningún botón
     }
-
+    /**
+     * Revisa si el click cayó la ranura de vuelto.
+     * @param clickX Rango de coordenadas a lo ancho
+     * @param clickY  Rango de cordenadas a lo alto
+     */
     public boolean tocoRanuraVuelto(int clickX, int clickY) {
         if (clickX >= this.x && clickX <= this.x + this.ANCHO &&
                 clickY >= this.y && clickY <= this.y + this.ALTO) {
@@ -116,6 +137,8 @@ public class PanelExpendedor extends JPanel {
 
     /**
      * Revisa si el click cayó sobre la bandeja de salida de productos.
+     * @param clickX Rango de coordenadas a lo ancho
+     * @param clickY  Rango de cordenadas a lo alto
      */
     public boolean tocoBandejaSalida(int clickX, int clickY) {
         if (clickX >= this.x && clickX <= this.x + this.ANCHO &&
@@ -147,7 +170,10 @@ public class PanelExpendedor extends JPanel {
         if (bandejaVisual != null) bandejaVisual.actualizarVista();
     }
 
-
+    /**
+     * Dibuja el fondo de la máquina y delega el dibujo a cada depósito visual.
+     * @param g Objeto Graphics usado para dibujar.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Limpia el contenedor
@@ -174,6 +200,11 @@ public class PanelExpendedor extends JPanel {
         g.drawString("$1000", textoX, this.y +445);
         g.drawString("$800", textoX+3, this.y +495);
     }
+    /**
+     * Muestra la información del producto si el ratón está sobre él.
+     * @param event Evento del ratón.
+     * @return Texto con la serie del producto, o null si no hay nada.
+     */
     @Override
     public String getToolTipText(MouseEvent event) {
         int mouseX = event.getX();

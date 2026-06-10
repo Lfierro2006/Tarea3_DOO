@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import deposito.*;
 import producto.*;
 import maqexpendedora.*;
+/**
+ * Representación visual de un depósito de productos.
+ * Sincroniza el stock lógico con las imágenes dibujadas horizontalmente en pantalla.
+ */
 public class DepositoProductoVisual {
     private int x;
     private int y;
@@ -12,7 +16,13 @@ public class DepositoProductoVisual {
     private Image imagenProducto;
 
     private ArrayList<ProductoVisual> vistasProductos;//lISTA DE LAS REPRESENTACIONES GRAFICAS
-
+    /**
+     * Inicializa la vista del depósito y genera las vistas iniciales de sus productos.
+     * @param x Coordenada X base del depósito.
+     * @param y Coordenada Y base del depósito.
+     * @param depositoLogico Instancia lógica del depósito a representar.
+     * @param imagenProducto Imagen asignada a los productos de este depósito.
+     */
     public DepositoProductoVisual(int x, int y, Deposito<Producto> depositoLogico, Image imagenProducto){
         this.x = x;
         this.y = y;
@@ -34,6 +44,10 @@ public class DepositoProductoVisual {
         }
         return null;
     }
+    /**
+     * Sincroniza las vistas gráficas con el stock lógico actual,
+     * posicionando los productos horizontalmente con una separación constante.
+     */
     public void actualizarVistas() {
         vistasProductos.clear(); // Limpiamos la lista visual actual
         ArrayList<Producto> listaLogica = depositoLogico.getLista(); // Obtenemos el stock real
@@ -54,7 +68,10 @@ public class DepositoProductoVisual {
             posX += 77;
         }
     }
-
+    /**
+     * Dibuja todos los productos visuales que contiene este depósito.
+     * @param g Objeto Graphics utilizado para pintar.
+     */
     public void paintComponent(Graphics g) {
         for (ProductoVisual vista : vistasProductos) {
             vista.paintComponent(g); // Cada producto se dibuja a sí mismo
