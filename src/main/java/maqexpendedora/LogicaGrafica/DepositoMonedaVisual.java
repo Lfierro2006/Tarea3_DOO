@@ -1,10 +1,10 @@
-package maqexpendedora.LogicaGrafica;
+package LogicaGrafica;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import maqexpendedora.deposito.Deposito;
-import maqexpendedora.moneda.Moneda;
+import deposito.Deposito;
+import moneda.Moneda;
 import maqexpendedora.*;
 /**
  * Representación visual de un depósito de monedas.
@@ -27,8 +27,7 @@ public class DepositoMonedaVisual {
      * @param img1000 Imagen para la moneda de 1000.
      * @param img1500 Imagen para la moneda de 1500.
      */
-    public DepositoMonedaVisual(int x, int y, Deposito<Moneda> depositoLogico,
-                                 Image img100, Image img500, Image img1000, Image img1500) {
+    public DepositoMonedaVisual(int x, int y, Deposito<Moneda> depositoLogico, Image img100, Image img500, Image img1000, Image img1500) {
         this.x = x;
         this.y = y;
         this.depositoLogico = depositoLogico;
@@ -71,6 +70,19 @@ public class DepositoMonedaVisual {
                 posY += 50;
             }
         }
+    }
+
+    /**
+     * Busca si el click golpeó alguna moneda del inventario y la retorna.
+     * Usa coordenadas globales porque las hitboxes están mapeadas en ese sistema.
+     */
+    public Moneda obtenerMonedaEnPosicion(int clickX, int clickY) {
+        for (MonedaVisual mv : vistasMonedas) {
+            if (mv.contains(clickX, clickY)) {
+                return mv.getMonedaVisual();
+            }
+        }
+        return null; // El click no tocó ninguna moneda de la fila
     }
     /**
      * Verifica si el ratón está sobre alguna de las monedas para mostrar su información.
