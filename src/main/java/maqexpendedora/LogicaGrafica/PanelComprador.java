@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import maqexpendedora.maqexpendedora.Comprador;
 import maqexpendedora.maqexpendedora.Expendedor;
 import maqexpendedora.moneda.Moneda;
-
+/**
+ * Panel gráfico que representa la interfaz y controles del comprador.
+ * Gestiona el flujo de compra mediante una máquina de estados cíclica.
+ */
 public class PanelComprador extends JPanel {
     private Comprador comprador;
     private Expendedor expendedor;
@@ -28,7 +31,13 @@ public class PanelComprador extends JPanel {
     private final int RECOGIENDO_PRODUCTO = 3;
     private final int RECOGIENDO_VUELTO = 4;
 
-
+    /**
+     * Inicializa el panel, carga imágenes y configura la detección de clics.
+     * @param x Coordenada X del panel.
+     * @param y Coordenada Y del panel.
+     * @param comprador Instancia lógica del comprador.
+     * @param expendedor Instancia lógica del expendedor.
+     */
     public PanelComprador(int x, int y, Comprador comprador, Expendedor expendedor) {
         this.x=x;
         this.y=y;
@@ -49,7 +58,9 @@ public class PanelComprador extends JPanel {
             }
         });
     }
-
+    /**
+     * Carga las imágenes de las monedas desde los archivos locales.
+     */
     private void cargarImagenes() {
         try {
             img100 = ImageIO.read(new File("src/main/java/Sprites/Moneda100.png"));
@@ -61,6 +72,10 @@ public class PanelComprador extends JPanel {
         }
 
     }
+    /**
+     * Transfiere una moneda específica del monedero base al inventario de pago actual.
+     * @param valor Valor de la moneda seleccionada (100, 500, 1000 o 1500).
+     */
     private void moverMonedaAInventario(int valor) {
         ArrayList<Moneda> listaMonedero = comprador.getMonedero().getLista();
         for (int i = 0; i < listaMonedero.size(); i++) {
@@ -72,7 +87,11 @@ public class PanelComprador extends JPanel {
             }
         }
     }
-
+    /**
+     * Gestiona las acciones del usuario basándose en coordenadas y el estado actual de la compra.
+     * @param clickX Coordenada X del clic.
+     * @param clickY Coordenada Y del clic.
+     */
     public void procesarClick(int clickX, int clickY) {
         if (clickX >= this.x && clickX <= this.x + this.ancho &&
                 clickY >= this.y && clickY <= this.y + this.alto) {
@@ -132,17 +151,27 @@ public class PanelComprador extends JPanel {
         }
     }
 
-
+    /**
+     * Refresca la vista de las monedas en el inventario visual.
+     */
 
     public void actualizarAlmacenVisual() {
         this.inventarioMonedasVisual.actualizarVistas();
     }
+    /**
+     * Delega la obtención del ToolTip al depósito visual de monedas.
+     * @param event Evento del ratón.
+     * @return String con la información de la moneda bajo el cursor.
+     */
     @Override
     public String getToolTipText(MouseEvent event) {
         // Pasa las coordenadas directamente a la cascada de depósitos de monedas
         return inventarioMonedasVisual.obtenerToolTip(event.getX(), event.getY());
     }
-
+    /**
+     * Dibuja los botones interactivos, el estado actual, textos informativos y las vistas anidadas.
+     * @param g Objeto Graphics utilizado para pintar los componentes.
+     */
     @Override
     public void paintComponent(Graphics g) {
         // Rectángulo base de contención visual para delimitar el área

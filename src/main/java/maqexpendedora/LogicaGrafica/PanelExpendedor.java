@@ -8,7 +8,10 @@ import java.io.IOException;
 
 import maqexpendedora.*;
 import maqexpendedora.maqexpendedora.Expendedor;
-
+/**
+ * Panel gráfico que representa visualmente la máquina expendedora.
+ * Contiene las imágenes y vistas de los depósitos de productos.
+ */
 public class PanelExpendedor extends JPanel {
     private Expendedor expendedor;
     private int ancho = 502;
@@ -19,7 +22,12 @@ public class PanelExpendedor extends JPanel {
 
     private DepositoProductoVisual depCoca, depFanta, depSprite, depSnicker, depChokita, depSuper8;
     private DepositoEspecialVisual bandejaVisual;
-
+    /**
+     * Inicializa la vista del expendedor, carga sus imágenes y crea las vistas de los depósitos.
+     * @param x Coordenada X del panel.
+     * @param y Coordenada Y del panel.
+     * @param expendedor Instancia lógica del expendedor.
+     */
     public PanelExpendedor(int x, int y, Expendedor expendedor){
         this.x=x;
         this.y=y;
@@ -37,6 +45,9 @@ public class PanelExpendedor extends JPanel {
         bandejaVisual = new DepositoEspecialVisual(120, 520, expendedor.getDepEspecial(), imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8);
 
     }
+    /**
+     * Carga las imágenes de la máquina y los productos desde el sistema de archivos.
+     */
     private void cargarImagenes() {
         try {
 
@@ -52,6 +63,12 @@ public class PanelExpendedor extends JPanel {
             System.out.println("Error al cargar una o más imágenes: " + e.getMessage());
         }
     }
+    /**
+     * Evalúa las interacciones del usuario según las coordenadas del clic.
+     * Gestiona botones, bandeja de salida y el rellenado de depósitos.
+     * @param clickX Coordenada X del clic.
+     * @param clickY Coordenada Y del clic.
+     */
     public void procesarClick(int clickX, int clickY) {
         // Validar si el click ocurrió dentro de los límites de este PanelExpendedor
         if (clickX >= this.x && clickX <= this.x + this.ancho && clickY >= this.y && clickY <= this.y + this.alto) {
@@ -92,11 +109,18 @@ public class PanelExpendedor extends JPanel {
         }
     }
 
-
+    /**
+     * Devuelve la vista correspondiente a la bandeja de salida.
+     * @return Objeto DepositoEspecialVisual.
+     */
     public DepositoEspecialVisual getBandejaVisual() {
         return this.bandejaVisual;
     }
     @Override
+    /**
+     * Dibuja el fondo de la máquina y delega el dibujo a cada depósito visual.
+     * @param g Objeto Graphics usado para dibujar.
+     */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Limpia el contenedor
 
@@ -113,6 +137,11 @@ public class PanelExpendedor extends JPanel {
         depSuper8.paintComponent(g);
         bandejaVisual.paintComponent(g);
     }
+    /**
+     * Muestra la información del producto si el ratón está sobre él.
+     * @param event Evento del ratón.
+     * @return Texto con la serie del producto, o null si no hay nada.
+     */
     @Override
     public String getToolTipText(MouseEvent event) {
         int mouseX = event.getX();
