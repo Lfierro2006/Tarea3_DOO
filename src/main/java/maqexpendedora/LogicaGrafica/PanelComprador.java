@@ -1,4 +1,4 @@
-package maqexpendedora.LogicaGrafica;
+package LogicaGrafica;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import maqexpendedora.maqexpendedora.Comprador;
-import maqexpendedora.maqexpendedora.Expendedor;
-import maqexpendedora.moneda.Moneda;
+import maqexpendedora.*;
+import moneda.Moneda;
 /**
  * Panel gráfico que representa la interfaz y controles del comprador.
  * Gestiona el flujo de compra mediante una máquina de estados cíclica.
@@ -19,10 +18,11 @@ public class PanelComprador extends JPanel {
     private Comprador comprador;
     private Expendedor expendedor;
     private int x, y;
-    private int ancho = 600;
-    private int alto = 850;
-    private Image img100, img500, img1000, img1500;
+    private int ANCHO = 650;
+    private int ALTO = 800;
+    private Image img100, img500, img1000, img1500, imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8;
     private DepositoMonedaVisual inventarioMonedasVisual;
+    private MochilaVisual mochilaVisual;
 
     // Máquina de estados cíclica
     private int estadoActual = 1;
@@ -30,7 +30,6 @@ public class PanelComprador extends JPanel {
     private final int GATILLAR_COMPRA = 2;
     private final int RECOGIENDO_PRODUCTO = 3;
     private final int RECOGIENDO_VUELTO = 4;
-
     /**
      * Inicializa el panel, carga imágenes y configura la detección de clics.
      * @param x Coordenada X del panel.
@@ -38,6 +37,7 @@ public class PanelComprador extends JPanel {
      * @param comprador Instancia lógica del comprador.
      * @param expendedor Instancia lógica del expendedor.
      */
+
     public PanelComprador(int x, int y, Comprador comprador, Expendedor expendedor) {
         this.x=x;
         this.y=y;
@@ -47,6 +47,8 @@ public class PanelComprador extends JPanel {
         cargarImagenes();
         ToolTipManager.sharedInstance().registerComponent(this);
         this.inventarioMonedasVisual = new DepositoMonedaVisual(this.x + 40, this.y + 220, comprador.getInventario(), img100, img500, img1000, img1500);
+        this.mochilaVisual = new MochilaVisual(this.x + 10, this.y + 600, comprador.getInventarioProductos(), imgCoca, imgFanta, imgSprite, imgSnicker, imgChokita, imgSuper8);
+
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -67,6 +69,13 @@ public class PanelComprador extends JPanel {
             img500 = ImageIO.read(new File("src/main/java/Sprites/Moneda500.png"));
             img1000 = ImageIO.read(new File("src/main/java/Sprites/Moneda1000.png"));
             img1500 = ImageIO.read(new File("src/main/java/Sprites/Moneda1500.png"));
+
+            imgCoca = ImageIO.read(new File("src/main/java/Sprites/CocaCola.png"));
+            imgFanta = ImageIO.read(new File("src/main/java/Sprites/Fanta.png"));
+            imgSprite = ImageIO.read(new File("src/main/java/Sprites/Sprite.png"));
+            imgSnicker = ImageIO.read(new File("src/main/java/Sprites/Snicker.png"));
+            imgChokita = ImageIO.read(new File("src/main/java/Sprites/Chokita.png"));
+            imgSuper8 = ImageIO.read(new File("src/main/java/Sprites/Super8.png"));
         } catch (IOException e) {
             System.out.println("Error al cargar imágenes de monedas: " + e.getMessage());
         }
@@ -78,23 +87,69 @@ public class PanelComprador extends JPanel {
      */
     private void moverMonedaAInventario(int valor) {
         ArrayList<Moneda> listaMonedero = comprador.getMonedero().getLista();
-        for (int i = 0; i < listaMonedero.size(); i++) {
-            if (listaMonedero.get(i).getValor() == valor) {
-                Moneda m = listaMonedero.remove(i);
-                comprador.getInventario().addObjeto(m);
+        for (Moneda m : comprador.getMonedero().getLista()) {
+            if (m.getValor()== valor) {
+
+                comprador.agregarMoneda(m);
                 inventarioMonedasVisual.actualizarVistas(); // Sincroniza la cascada visual
                 break;
             }
         }
     }
+
     /**
-     * Gestiona las acciones del usuario basándose en coordenadas y el estado actual de la compra.
-     * @param clickX Coordenada X del clic.
-     * @param clickY Coordenada Y del clic.
+     * Confirma el ingreso de las monedas al hacer click en la ranura de la máquina.
      */
+    public void procesarIngresoMonedasDesdeMaquina() {
+        if (this.estadoActual == SELECCIONANDO_MONEDAS) {
+            // Solo avanzamos si el usuario realmente preparó alguna moneda en su mano
+
+            if (!comprador.getInventario().getLista().isEmpty()) {
+                this.estadoActual = GATILLAR_COMPRA;
+            }
+        }
+    }
+    /**
+     * Ejecuta la compra usando el botón físico tocado en la máquina, respetando el estado actual.
+     */
+    public void procesarCompraDesdeMaquina(Expendedor.NomProduct producto) {
+        if (this.estadoActual == GATILLAR_COMPRA) {
+            // El usuario tocó un botón válido de la máquina durante la fase de compra
+            comprador.comprar(producto, expendedor);
+            inventarioMonedasVisual.actualizarVistas(); // El dinero entra a la máquina
+            this.estadoActual = RECOGIENDO_PRODUCTO; // Avanzamos de fase
+        }
+    }
+    /**
+     * Recoge el producto haciendo click directamente en la bandeja de la máquina.
+     */
+    public void procesarRecojoProductoDesdeMaquina() {
+        if (this.estadoActual == RECOGIENDO_PRODUCTO) {
+            comprador.recogerProducto(expendedor);
+            this.estadoActual = RECOGIENDO_VUELTO; // Avanza en el ciclo
+        }
+    }
+
+    /**
+     * Recoge el vuelto haciendo click en la ranura de la máquina.
+     */
+    public void procesarVueltoDesdeMaquina() {
+        if (this.estadoActual == RECOGIENDO_VUELTO) {
+            while (!expendedor.getMonVuelto().isEmpty()) {
+                Moneda vuelto = expendedor.getMonVuelto().getLista().get(0);
+                comprador.recogerVuelto(expendedor, vuelto);
+            }
+
+
+
+            this.estadoActual = SELECCIONANDO_MONEDAS;
+
+        }
+    }
+
     public void procesarClick(int clickX, int clickY) {
-        if (clickX >= this.x && clickX <= this.x + this.ancho &&
-                clickY >= this.y && clickY <= this.y + this.alto) {
+        if (clickX >= this.x && clickX <= this.x + this.ANCHO &&
+                clickY >= this.y && clickY <= this.y + this.ALTO) {
 
             int localX = clickX - this.x;
             int localY = clickY - this.y;
@@ -108,55 +163,51 @@ public class PanelComprador extends JPanel {
                         else if (localX >= 180 && localX <= 230) moverMonedaAInventario(1000);
                         else if (localX >= 250 && localX <= 300) moverMonedaAInventario(1500);
                     }
-                    // Botón para confirmar las monedas ingresadas y pasar a la selección del producto
-                    if (localX >= 40 && localX <= 220 && localY >= 350 && localY <= 390) {
-                        if (!comprador.getInventario().getLista().isEmpty()) {
-                            estadoActual = GATILLAR_COMPRA;
-                        }
+                    Moneda monedaAEliminar = inventarioMonedasVisual.obtenerMonedaEnPosicion(clickX, clickY);
+
+                    if (monedaAEliminar != null) {
+                        // ¡Usamos tu método lógico directamente!
+                        comprador.eliminarMoneda(monedaAEliminar);
+
+                        // Sincronizamos las vistas para que la moneda desaparezca de la fila
+                        inventarioMonedasVisual.actualizarVistas();
                     }
                     break;
 
                 case GATILLAR_COMPRA:
-                    // Presionar el botón para comprar el producto
-                    if (localX >= 40 && localX <= 220 && localY >= 350 && localY <= 390) {
-                        comprador.comprar(Expendedor.NomProduct.SNICKER, expendedor);
-                        inventarioMonedasVisual.actualizarVistas();
-                        estadoActual = RECOGIENDO_PRODUCTO; // Avanza en el ciclo
-                    }
+
+
                     break;
 
                 case RECOGIENDO_PRODUCTO:
-                    // El usuario hace click en el botón para retirar su producto de la bandeja
-                    if (localX >= 40 && localX <= 220 && localY >= 420 && localY <= 460) {
-                        comprador.recogerProducto(expendedor);
-                        estadoActual = RECOGIENDO_VUELTO; // Avanza en el ciclo
-                    }
+
                     break;
 
                 case RECOGIENDO_VUELTO:
-                    // Recoger monedas del depósito de vuelto una a una hasta vaciarlo
-                    if (localX >= 40 && localX <= 220 && localY >= 490 && localY <= 530) {
-                        if (!expendedor.getMonVuelto().isEmpty()) {
-                            Moneda vuelto = expendedor.getMonVuelto().getLista().get(0);
-                            comprador.recogerVuelto(expendedor, vuelto);
-                        }
 
-                        // Si ya no queda vuelto pendiente por retirar, el ciclo se reinicia al Estado 1
-                        if (expendedor.getMonVuelto().isEmpty()) {
-                            estadoActual = SELECCIONANDO_MONEDAS;
-                        }
-                    }
                     break;
             }
         }
     }
 
     /**
+     * Cuenta la cantidad de monedas de un valor específico que quedan en el monedero lógico.
+     */
+    private int contarMonedasEnMonedero(int valor) {
+        int cantidad = 0;
+        for (Moneda m : comprador.getMonedero().getLista()) {
+            if (m.getValor() == valor) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+    /**
      * Refresca la vista de las monedas en el inventario visual.
      */
-
     public void actualizarAlmacenVisual() {
         this.inventarioMonedasVisual.actualizarVistas();
+        if (this.mochilaVisual != null) this.mochilaVisual.actualizarVistas();
     }
     /**
      * Delega la obtención del ToolTip al depósito visual de monedas.
@@ -166,7 +217,16 @@ public class PanelComprador extends JPanel {
     @Override
     public String getToolTipText(MouseEvent event) {
         // Pasa las coordenadas directamente a la cascada de depósitos de monedas
-        return inventarioMonedasVisual.obtenerToolTip(event.getX(), event.getY());
+
+        String textoMoneda = inventarioMonedasVisual.obtenerToolTip(event.getX(), event.getY());
+        if (textoMoneda != null) {return textoMoneda;}
+
+
+        if (mochilaVisual != null) {
+            String textoProducto = mochilaVisual.obtenerToolTip(event.getX(), event.getY());
+            if (textoProducto != null) return textoProducto;
+        }
+        return null;
     }
     /**
      * Dibuja los botones interactivos, el estado actual, textos informativos y las vistas anidadas.
@@ -175,20 +235,20 @@ public class PanelComprador extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         // Rectángulo base de contención visual para delimitar el área
-        g.setColor(new Color(245, 245, 245));
-        g.fillRect(x, y, ancho, alto);
+        g.setColor(new Color(255, 240, 240));
+        g.fillRect(x, y, ANCHO, ALTO);
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, ancho, alto);
+        g.drawRect(x, y, ANCHO, ALTO);
 
 
         g.setFont(new Font("Arial", Font.BOLD, 14));
         g.setColor(Color.BLUE);
         String textoEstado = "";
         switch(estadoActual) {
-            case SELECCIONANDO_MONEDAS: textoEstado = "Fase 1: Selecciona monedas y presiona CONFIRMAR PAGAR"; break;
-            case GATILLAR_COMPRA:       textoEstado = "Fase 2: Presiona EFECTUAR COMPRA"; break;
-            case RECOGIENDO_PRODUCTO:   textoEstado = "Fase 3: Presiona RECOGER PRODUCTO"; break;
-            case RECOGIENDO_VUELTO:     textoEstado = "Fase 4: Presiona RECOGER VUELTO"; break;
+            case SELECCIONANDO_MONEDAS: textoEstado = "Selecciona monedas y presiona la ranura para Monedas al lado de la maquina"; break;
+            case GATILLAR_COMPRA:       textoEstado = "Presiona el producto en el lateral de la maquina, estan ordenados por altura"; break;
+            case RECOGIENDO_PRODUCTO:   textoEstado = "Recoja su Producto"; break;
+            case RECOGIENDO_VUELTO:     textoEstado = "Recoja su Vuelto arriba de donde recogio su producto"; break;
         }
         g.drawString(textoEstado, x + 40, y + 40);
 
@@ -199,30 +259,37 @@ public class PanelComprador extends JPanel {
         if (img1000 != null) g.drawImage(img1000, x + 180, y + 80, 50, 50, null);
         if (img1500 != null) g.drawImage(img1500, x + 250, y + 80, 50, 50, null);
 
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.setColor(Color.RED); // Color llamativo para el contador
+
+        int cant100 = contarMonedasEnMonedero(100);
+        int cant500 = contarMonedasEnMonedero(500);
+        int cant1000 = contarMonedasEnMonedero(1000);
+        int cant1500 = contarMonedasEnMonedero(1500);
+
+        g.drawString("x" + cant100, x + 75, y + 90);
+        g.drawString("x" + cant500, x + 145, y + 90);
+        g.drawString("x" + cant1000, x + 215, y + 90);
+        g.drawString("x" + cant1500, x + 285, y + 90);
+
+
+// Restaurar color a negro para el resto de los textos
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
         g.drawString("Monedas añadidas para el pago actual:", x + 40, y + 190);
 
         // Efecto cascada delegando la pintura del depósito visual
         inventarioMonedasVisual.paintComponent(g);
-
-        // Configuración visual de los botones de control dinámicos según el estado del ciclo
-        if (estadoActual == SELECCIONANDO_MONEDAS) {
-            g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(x + 40, y + 350, 200, 40);
-            g.setColor(Color.BLACK);
-            g.drawRect(x + 40, y + 350, 200, 40);
-            g.drawString("CONFIRMAR PAGAR", x + 70, y + 375);
-        } else if (estadoActual == GATILLAR_COMPRA) {
-            g.setColor(new Color(255, 140, 0)); // Naranja de acción
-            g.fillRect(x + 40, y + 350, 200, 40);
-            g.setColor(Color.BLACK);
-            g.drawRect(x + 40, y + 350, 200, 40);
-            g.drawString("EFECTUAR COMPRA", x + 65, y + 375);
+        if (mochilaVisual != null) {
+            mochilaVisual.paintComponent(g);
         }
+        // Configuración visual de los botones de control dinámicos según el estado del ciclo
+
 
 
 
 
 
         g.drawString("Productos en Mochila: " + comprador.getInventarioProductos().getLista().size(), x + 40, y + 580);
-    }
-}
+
+}}
