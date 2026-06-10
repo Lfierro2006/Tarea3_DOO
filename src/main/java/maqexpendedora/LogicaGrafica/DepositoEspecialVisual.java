@@ -1,9 +1,9 @@
-package maqexpendedora.LogicaGrafica;
+package LogicaGrafica;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import maqexpendedora.deposito.DepositoEspecial;
-import maqexpendedora.producto.*;
+import deposito.DepositoEspecial;
+import producto.*;
 
 public class DepositoEspecialVisual {
     private int x;

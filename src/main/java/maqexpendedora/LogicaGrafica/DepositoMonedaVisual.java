@@ -1,10 +1,10 @@
-package maqexpendedora.LogicaGrafica;
+package LogicaGrafica;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import maqexpendedora.deposito.Deposito;
-import maqexpendedora.moneda.Moneda;
+import deposito.Deposito;
+import moneda.Moneda;
 import maqexpendedora.*;
 public class DepositoMonedaVisual {
     private int x, y;
