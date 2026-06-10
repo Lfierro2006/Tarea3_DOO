@@ -1,6 +1,7 @@
-package maqexpendedora.LogicaGrafica;
+package LogicaGrafica;
 
-import maqexpendedora.moneda.Moneda;
+import moneda.Moneda;
+import maqexpendedora.*;
 
 import java.awt.*;
 

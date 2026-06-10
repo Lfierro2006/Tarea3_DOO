@@ -1,4 +1,4 @@
-package maqexpendedora.deposito;
+package deposito;
 
 import java.util.ArrayList;
 

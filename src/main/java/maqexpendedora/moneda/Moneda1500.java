@@ -1,4 +1,4 @@
-package maqexpendedora.moneda;
+package moneda;
 
 /**
  * Clase que representa una moneda de 1500

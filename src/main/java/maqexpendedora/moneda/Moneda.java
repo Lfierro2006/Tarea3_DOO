@@ -1,4 +1,4 @@
-package maqexpendedora.moneda;
+package moneda;
 
 /**
  * Clase abstracta que represnta una moneda de forma generica

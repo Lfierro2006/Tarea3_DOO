@@ -1,6 +1,6 @@
-package maqexpendedora.deposito;
+package deposito;
 
-import maqexpendedora.producto.Producto;
+import producto.Producto;
 /**
  * Depósito de capacidad única para un solo Producto.
  * Implementa el patrón Singleton.
