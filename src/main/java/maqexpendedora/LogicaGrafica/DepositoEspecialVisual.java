@@ -1,9 +1,9 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import deposito.DepositoEspecial;
-import producto.*;
+import maqexpendedora.deposito.DepositoEspecial;
+import maqexpendedora.producto.*;
 /**
  * Representación visual de la bandeja de salida (depósito especial).
  * Se encarga de mostrar el único producto que el comprador acaba de adquirir.

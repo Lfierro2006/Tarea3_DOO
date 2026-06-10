@@ -1,4 +1,4 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,8 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import maqexpendedora.*;
-import moneda.Moneda;
+import maqexpendedora.maqexpendedora.*;
+import maqexpendedora.moneda.Moneda;
 /**
  * Panel gráfico que representa la interfaz y controles del comprador.
  * Gestiona el flujo de compra mediante una máquina de estados cíclica.

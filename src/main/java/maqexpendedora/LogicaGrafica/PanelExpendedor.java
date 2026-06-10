@@ -1,4 +1,4 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
-import maqexpendedora.*;
+import maqexpendedora.maqexpendedora.*;
 /**
  * Panel gráfico que representa visualmente la máquina expendedora.
  * Contiene las imágenes y vistas de los depósitos de productos.

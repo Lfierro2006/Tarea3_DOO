@@ -1,7 +1,7 @@
-package LogicaGrafica;
-import maqexpendedora.*;
-import maqexpendedora.Comprador;
-import maqexpendedora.Expendedor;
+package maqexpendedora.LogicaGrafica;
+import maqexpendedora.maqexpendedora.*;
+import maqexpendedora.maqexpendedora.Comprador;
+import maqexpendedora.maqexpendedora.Expendedor;
 
 
 import javax.swing.*;
