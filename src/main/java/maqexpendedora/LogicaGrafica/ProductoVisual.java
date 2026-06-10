@@ -2,13 +2,13 @@ package LogicaGrafica;
 import java.awt.Graphics;
 import java.awt.Image;
 import producto.Producto;
-import maqexpendedora.*;
+
 public class ProductoVisual {
     private int x, y;
     private Producto productoLogico;
     private Image imagen;
-    private int ancho = 64;
-    private int alto = 64;
+    private int ANCHO = 16;
+    private int ALTO = 16;
 
     public ProductoVisual(Producto productoLogico, Image imagen){
         this.productoLogico=productoLogico;
@@ -16,7 +16,7 @@ public class ProductoVisual {
 
     }
     public boolean contains(int mouseX, int mouseY) {
-        return mouseX >= this.x && mouseX <= this.x + ancho && mouseY >= this.y && mouseY <= this.y + alto;
+        return mouseX >= this.x && mouseX <= this.x + ANCHO && mouseY >= this.y && mouseY <= this.y + ALTO;
     }
 
     /**
