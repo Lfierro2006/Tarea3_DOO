@@ -1,4 +1,4 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,8 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import maqexpendedora.*;
-import moneda.Moneda;
+import maqexpendedora.maqexpendedora.Comprador;
+import maqexpendedora.maqexpendedora.Expendedor;
+import maqexpendedora.moneda.Moneda;
 
 public class PanelComprador extends JPanel {
     private Comprador comprador;

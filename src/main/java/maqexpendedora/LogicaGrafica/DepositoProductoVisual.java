@@ -1,9 +1,9 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import deposito.*;
-import producto.*;
+import maqexpendedora.deposito.*;
+import maqexpendedora.producto.*;
 import maqexpendedora.*;
 public class DepositoProductoVisual {
     private int x;

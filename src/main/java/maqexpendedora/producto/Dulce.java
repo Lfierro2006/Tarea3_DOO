@@ -1,4 +1,4 @@
-package producto;
+package maqexpendedora.producto;
 
 /**
  * Clase abstracta que representa el comportamiendo de los productos "Dulces"

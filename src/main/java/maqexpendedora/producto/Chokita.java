@@ -1,4 +1,4 @@
-package producto;
+package maqexpendedora.producto;
 /**
  * Representa una Chokita.
  * Hereda de la clase abstracta Dulce y define su propio texto al ser consumido.
