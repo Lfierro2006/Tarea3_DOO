@@ -1,4 +1,4 @@
-package excepciones;
+package maqexpendedora.excepciones;
 
 /**
  * Excepcion que se lanza cuando el pago es menor

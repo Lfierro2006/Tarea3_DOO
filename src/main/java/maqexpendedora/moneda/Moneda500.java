@@ -1,4 +1,4 @@
-package moneda;
+package maqexpendedora.moneda;
 
 /**
  * Clase que representa a una moneda con valor de 500
