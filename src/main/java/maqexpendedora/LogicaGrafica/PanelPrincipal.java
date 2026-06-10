@@ -1,4 +1,4 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import maqexpendedora.*;
 import maqexpendedora.Comprador;
 import maqexpendedora.Expendedor;

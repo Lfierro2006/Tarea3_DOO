@@ -1,4 +1,4 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import javax.swing.JFrame;
 /**
  * Ventana principal de la interfaz gráfica.

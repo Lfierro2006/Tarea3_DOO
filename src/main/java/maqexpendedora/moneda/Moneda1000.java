@@ -1,4 +1,4 @@
-package moneda;
+package maqexpendedora.moneda;
 
 /**
  * Clase que representa una moneda con valor exacto de 1000

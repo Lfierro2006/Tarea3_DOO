@@ -1,4 +1,4 @@
-package producto;
+package maqexpendedora.producto;
 
 /**
  * clase que representa el producto Snicker

@@ -1,10 +1,10 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import deposito.*;
-import producto.*;
-import maqexpendedora.*;
+import maqexpendedora.deposito.*;
+import maqexpendedora.producto.*;
+import maqexpendedora.maqexpendedora.*;
 /**
  * Representación visual de un depósito de productos.
  * Sincroniza el stock lógico con las imágenes dibujadas horizontalmente en pantalla.

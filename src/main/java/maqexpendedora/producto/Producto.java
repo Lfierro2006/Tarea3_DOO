@@ -1,4 +1,4 @@
-package producto;
+package maqexpendedora.producto;
 
 /**
  * Clase que representa a todos los productos que pueden ser

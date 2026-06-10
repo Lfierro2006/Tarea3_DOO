@@ -1,11 +1,11 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import deposito.Deposito;
-import moneda.Moneda;
-import maqexpendedora.*;
+import maqexpendedora.deposito.Deposito;
+import maqexpendedora.moneda.Moneda;
+import maqexpendedora.maqexpendedora.*;
 /**
  * Representación visual de un depósito de monedas.
  * Organiza y dibuja las monedas en la interfaz, formando filas estructuradas.

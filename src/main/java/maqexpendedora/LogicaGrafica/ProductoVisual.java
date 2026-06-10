@@ -1,7 +1,7 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 import java.awt.Graphics;
 import java.awt.Image;
-import producto.Producto;
+import maqexpendedora.producto.Producto;
 
 public class ProductoVisual {
     private int x, y;

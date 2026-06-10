@@ -1,10 +1,10 @@
-package LogicaGrafica;
+package maqexpendedora.LogicaGrafica;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import deposito.Deposito;
-import producto.*;
+import maqexpendedora.deposito.Deposito;
+import maqexpendedora.producto.*;
 /**
  * Administrador visual encargado de representar gráficamente el inventario
  * de productos comprados (la mochila) del comprador.
