@@ -1,6 +1,7 @@
-package maqexpendedora.LogicaGrafica;
+package LogicaGrafica;
 
-import maqexpendedora.moneda.Moneda;
+import moneda.Moneda;
+import maqexpendedora.*;
 
 import java.awt.*;
 /**
@@ -29,15 +30,14 @@ public class MonedaVisual {
     public void setXY(int x, int y){
         this.x=x;
         this.y=y;
-    }
 
+    }
     /**
      * Verifica si las coordenadas del ratón están sobre la imagen de esta moneda.
      * @param mouseX Coordenada X del ratón.
      * @param mouseY Coordenada Y del ratón.
      * @return true si el ratón está encima, false en caso contrario.
      */
-
     public boolean contains(int mouseX, int mouseY) {
         return mouseX >= this.x && mouseX <= this.x + 64 &&
                 mouseY >= this.y && mouseY <= this.y + 64;
@@ -46,7 +46,6 @@ public class MonedaVisual {
      * Devuelve el objeto lógico de la moneda asociada.
      * @return Instancia de Moneda.
      */
-
     public Moneda getMonedaVisual(){return monedaVisual;}
     /**
      * Obtiene el texto formateado con el valor y serie para mostrar en el ToolTip.
@@ -56,7 +55,6 @@ public class MonedaVisual {
     public String getSerieTexto() {
         return "Valor: $" + monedaVisual.getValor() + " | Serie: " + monedaVisual.getSerie();
     }
-
     /**
      * Dibuja la imagen de la moneda en las coordenadas establecidas (tamaño 64x64).
      * @param g Objeto Graphics utilizado para pintar.
@@ -66,5 +64,5 @@ public class MonedaVisual {
         if (imagen != null){
             g.drawImage(imagen, x, y, 64, 64, null);
         }
-    }
-}
+    }}
+
