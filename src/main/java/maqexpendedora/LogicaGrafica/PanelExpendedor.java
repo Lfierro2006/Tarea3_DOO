@@ -143,7 +143,7 @@ public class PanelExpendedor extends JPanel {
         if (depSnicker != null) depSnicker.actualizarVistas();
         if (depChokita != null) depChokita.actualizarVistas();
         if (depSuper8 != null) depSuper8.actualizarVistas();
-
+        expendedor.rellenarDepositos();
         if (bandejaVisual != null) bandejaVisual.actualizarVista();
     }
 
@@ -164,6 +164,15 @@ public class PanelExpendedor extends JPanel {
         depChokita.paintComponent(g);
         depSuper8.paintComponent(g);
         bandejaVisual.paintComponent(g);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
+        int textoX = this.x + 385;
+        g.drawString("$500", textoX, this.y +251);
+        g.drawString("$400", textoX, this.y +295+5);
+        g.drawString("$500", textoX, this.y +345+5);
+        g.drawString("$1300", textoX, this.y +397);
+        g.drawString("$1000", textoX, this.y +445);
+        g.drawString("$800", textoX+3, this.y +495);
     }
     @Override
     public String getToolTipText(MouseEvent event) {
@@ -182,7 +191,7 @@ public class PanelExpendedor extends JPanel {
         texto = depSprite.obtenerToolTip(mouseX, mouseY);
         if (texto != null) return texto;
 
-        // 2. Revisamos el estante de Snickers
+
         texto = depSnicker.obtenerToolTip(mouseX, mouseY);
         if (texto != null) return texto;
 
